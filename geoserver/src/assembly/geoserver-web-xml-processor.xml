@@ -35,5 +35,19 @@
             </filter-mapping>
         ]]></value>
     </add>
-</processor>
-
+    <add>
+        <!-- Our filter must run before the filterChainProxy because we modify the security -->
+        <after>/web-app/welcome-file-list</after>
+        <value><![CDATA[
+            <security-constraint>
+                <web-resource-collection>
+                    <web-resource-name>Viewpoint Secure URLs</web-resource-name>
+                    <url-pattern>/*</url-pattern>
+                </web-resource-collection>
+                <user-data-constraint>
+                    <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+                </user-data-constraint>
+            </security-constraint>
+        ]]></value>
+    </add>
+ </processor>
