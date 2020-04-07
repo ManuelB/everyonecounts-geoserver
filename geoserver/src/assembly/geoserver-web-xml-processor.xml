@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<processor>
+    <add>
+        <after>/web-app/context-param</after>
+        <value><![CDATA[
+            <context-param>
+                <param-name>GEOSERVER_DATA_DIR</param-name>
+                <param-value>/home/geoserver/data_dir</param-value>
+            </context-param>
+            <context-param>
+                <param-name>GEOSERVER_XSTREAM_WHITELIST</param-name>
+                <param-value>org.geoserver.rest.security.xml.JaxbUser</param-value>
+            </context-param>
+            <context-param>
+                <param-name>GEOSERVER_LOG_LOCATION</param-name>
+                <param-value>/home/geoserver/data_dir/logs/geoserver.log</param-value>
+            </context-param>
+            <context-param>
+                <param-name>RELINQUISH_LOG4J_CONTROL</param-name>
+                <param-value>true</param-value>
+            </context-param>
+            <filter>
+                <filter-name>CORSFilter</filter-name>
+                <filter-class>de.everyonecounts.servlet.CORSFilter</filter-class>
+            </filter>
+            ]]></value>
+    </add>
+    <add>
+        <!-- Our filter must run before the filterChainProxy because we modify the security -->
+        <after>/web-app/filter-mapping[filter-name/text() = 'Request Logging Filter']</after>
+        <value><![CDATA[
+            <filter-mapping>
+                <filter-name>CORSFilter</filter-name>
+                <url-pattern>/everyonecounts/*</url-pattern>
+            </filter-mapping>
+        ]]></value>
+    </add>
+</processor>
+

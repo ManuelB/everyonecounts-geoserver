@@ -1,0 +1,8 @@
+<jboss-deployment-structure>
+        <deployment>
+                <dependencies>
+                        <module name="org.infinispan" optional="true" />
+                        <module name="org.infinispan.commons" optional="true" />
+                </dependencies>
+        </deployment>
+</jboss-deployment-structure>
